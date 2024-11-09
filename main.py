@@ -1,7 +1,5 @@
 import logging
 from src.data.scrapers.facebook import FacebookScraper
-from src.analysis.processor import SentimentProcessor
-from src.notifications.slack import SlackNotifier
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
