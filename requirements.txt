@@ -10,11 +10,13 @@ cachetools==5.5.0
 certifi==2024.8.30
 charset-normalizer==3.4.0
 click==8.1.7
+colorama==0.4.6
 dataclasses-json==0.6.7
 fastapi==0.115.4
 frozenlist==1.5.0
 gitdb==4.0.11
 GitPython==3.1.43
+greenlet==3.1.1
 h11==0.14.0
 httpcore==1.0.6
 httpx==0.27.2
@@ -28,6 +30,7 @@ jsonschema-specifications==2024.10.1
 langchain==0.3.7
 langchain-community==0.3.5
 langchain-core==0.3.15
+langchain-ollama==0.2.0
 langchain-text-splitters==0.3.2
 langsmith==0.1.142
 markdown-it-py==3.0.0
@@ -76,4 +79,5 @@ typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.2.3
 uvicorn==0.32.0
+watchdog==5.0.3
 yarl==1.17.1
