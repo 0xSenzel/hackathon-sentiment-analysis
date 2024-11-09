@@ -1,12 +1,22 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from ...utils.config import load_config
-from ..models.models import Base
 import os
 from dotenv import load_dotenv
+from ..models.models import Base
 
 class PostgresConnection:
-    def __init__(self, config=None):
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(PostgresConnection, cls).__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+    
+    def __init__(self):
+        if self._initialized:
+            return
+            
         # Load environment variables
         load_dotenv()
         
@@ -17,33 +27,24 @@ class PostgresConnection:
             'host': os.getenv('DB_HOST'),
             'port': os.getenv('DB_PORT', '6543')
         }
-        self.engine = None
-        self.Session = None
-        self.session = None
+        
+        # Create engine and session
+        url = "postgresql://{0[user]}:{0[password]}@{0[host]}:{0[port]}/{0[dbname]}".format(self.config)
+        self.engine = create_engine(url)
+        Base.metadata.create_all(self.engine)
+        self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
+        self._initialized = True
 
-    def connect(self):
-        """Establish connection to PostgreSQL database using SQLAlchemy"""
+    def get_db(self):
+        db = self.SessionLocal()
         try:
-            url = f"postgresql://{self.config['user']}:{self.config['password']}@{self.config['host']}:{self.config['port']}/{self.config['dbname']}"
-            self.engine = create_engine(url)
-            Base.metadata.create_all(self.engine)
-            self.Session = sessionmaker(bind=self.engine)
-            self.session = self.Session()
-            print("Successfully connected to PostgreSQL database")
-            return True
-        except Exception as e:
-            print(f"Error connecting to PostgreSQL database: {str(e)}")
-            return False
-
-    def disconnect(self):
-        """Close database connection"""
-        if self.session:
-            self.session.close()
-            print("Database connection closed")
+            yield db
+        finally:
+            db.close()
 
     def __enter__(self):
-        self.connect()
-        return self
+        self.session = self.SessionLocal()
+        return self.session
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.disconnect() 
+        self.session.close() 

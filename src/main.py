@@ -1,12 +1,13 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, BackgroundTasks, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from datetime import datetime
-from langchain.llms import Ollama
+from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
 from models.database import Post, Comment, SentimentAnalysis
-from database.connection import get_db
+from data.database.postgres import PostgresConnection
 import random
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 
@@ -34,10 +35,17 @@ def analyze_sentiment(text):
     result = llm(prompt.format(text=text))
     return result
 
+# Database dependency
+def get_db():
+    postgres = PostgresConnection()
+    db = next(postgres.get_db())
+    try:
+        yield db
+    finally:
+        db.close()
+
 @app.post("/generate-mock-data")
-async def generate_mock_data(background_tasks: BackgroundTasks):
-    db = next(get_db())
-    
+async def generate_mock_data(db: Session = Depends(get_db)):
     # Create mock post
     post = Post(
         content=f"Mock post {random.randint(1,1000)}",
