@@ -4,8 +4,8 @@ import uvicorn
 from datetime import datetime
 from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
-from models.database import Post, Comment, SentimentAnalysis
-from data.database.postgres import PostgresConnection
+from .models.database import Post, Comment, SentimentAnalysis
+from .database.postgres import PostgresConnection
 import random
 from sqlalchemy.orm import Session
 
@@ -82,4 +82,4 @@ async def generate_mock_data(db: Session = Depends(get_db)):
     return {"message": "Mock data generated"}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True) 
+    uvicorn.run("src.main:app", host="0.0.0.0", port=8000, reload=True) 

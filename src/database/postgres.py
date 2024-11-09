@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
-from ..models.models import Base
+from ..models.database import Base
 
 class PostgresConnection:
     _instance = None

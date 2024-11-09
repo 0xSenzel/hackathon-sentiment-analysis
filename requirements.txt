@@ -6,3 +6,6 @@ python-dotenv
 langchain
 langchain-community
 ollama
+streamlit
+pandas
+plotly
