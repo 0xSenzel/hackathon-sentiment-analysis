@@ -5,30 +5,34 @@ A Python-based sentiment analysis system for analyzing client feedback from soci
 ## Setup
 
 1. Create a virtual environment: 
-bash
+```bash
 python -m venv venv
 source venv/bin/activate # On Windows: venv\Scripts\activate
-
+```
 2. Install dependencies:
-bash
+```bash
 pip install -r requirements.txt
+```
 
 3. Create a `.env` file with required credentials:
-bash
+```bash
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 FB_ACCESS_TOKEN=your_fb_token
 SLACK_WEBHOOK_URL=your_slack_webhook
 EMAIL_SENDER=your_email
 EMAIL_PASSWORD=your_email_password
+```
 
 4. Run the application:
-bash
+```bash
 python main.py
+```
 
 5. Launch the dashboard:
-bash
+```bash
 streamlit run dashboard/app.py
+```
 
 ## Project Structure
 
@@ -37,7 +41,7 @@ streamlit run dashboard/app.py
 ## Testing
 
 Run tests using pytest:
-bash
+```bash
 pytest tests/
 ```
 
