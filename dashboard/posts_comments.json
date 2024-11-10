@@ -1,0 +1,237 @@
+{
+  "posts": [
+    {
+      "post_id": "1",
+      "content": "Account security is great. Never had an issue.",
+      "platform": "Facebook",
+      "created_at": "2024-10-01T12:00:00Z",
+      "scraped_at": "2024-10-01T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "1",
+          "content": "I feel safe with this broker. Great security.",
+          "created_at": "2024-10-01T12:05:00Z",
+          "scraped_at": "2024-10-01T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "2",
+      "content": "Payment processing is smooth, quick withdrawals.",
+      "platform": "Facebook",
+      "created_at": "2024-10-02T12:00:00Z",
+      "scraped_at": "2024-10-02T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "2",
+          "content": "My funds are always available within minutes!",
+          "created_at": "2024-10-02T12:05:00Z",
+          "scraped_at": "2024-10-02T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "3",
+      "content": "The trading platform is stable and user-friendly.",
+      "platform": "Facebook",
+      "created_at": "2024-10-03T12:00:00Z",
+      "scraped_at": "2024-10-03T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "3",
+          "content": "I love how easy it is to navigate the platform.",
+          "created_at": "2024-10-03T12:05:00Z",
+          "scraped_at": "2024-10-03T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "4",
+      "content": "Compliance and regulatory standards are met.",
+      "platform": "Facebook",
+      "created_at": "2024-10-04T12:00:00Z",
+      "scraped_at": "2024-10-04T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "4",
+          "content": "I'm glad they follow all regulations. Gives me peace of mind.",
+          "created_at": "2024-10-04T12:05:00Z",
+          "scraped_at": "2024-10-04T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "5",
+      "content": "Customer onboarding process is fast and efficient.",
+      "platform": "Facebook",
+      "created_at": "2024-10-05T12:00:00Z",
+      "scraped_at": "2024-10-05T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "5",
+          "content": "I was able to sign up and start trading within minutes!",
+          "created_at": "2024-10-05T12:05:00Z",
+          "scraped_at": "2024-10-05T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "6",
+      "content": "P2P trading feature works but could use improvement.",
+      "platform": "Facebook",
+      "created_at": "2024-10-06T12:00:00Z",
+      "scraped_at": "2024-10-06T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "6",
+          "content": "Had a few issues with the P2P exchange, but it's getting better.",
+          "created_at": "2024-10-06T12:05:00Z",
+          "scraped_at": "2024-10-06T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "7",
+      "content": "Affiliate & marketing program is fantastic.",
+      "platform": "Facebook",
+      "created_at": "2024-10-07T12:00:00Z",
+      "scraped_at": "2024-10-07T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "7",
+          "content": "I've earned extra money from their affiliate program!",
+          "created_at": "2024-10-07T12:05:00Z",
+          "scraped_at": "2024-10-07T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "8",
+      "content": "Technical issues have been minor but occasionally annoying.",
+      "platform": "Facebook",
+      "created_at": "2024-10-08T12:00:00Z",
+      "scraped_at": "2024-10-08T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "8",
+          "content": "Had a few login issues earlier this week, but they were fixed fast.",
+          "created_at": "2024-10-08T12:05:00Z",
+          "scraped_at": "2024-10-08T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "9",
+      "content": "Feature request support is great, but some requests take longer.",
+      "platform": "Facebook",
+      "created_at": "2024-10-09T12:00:00Z",
+      "scraped_at": "2024-10-09T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "9",
+          "content": "They take suggestions seriously, but updates take time.",
+          "created_at": "2024-10-09T12:05:00Z",
+          "scraped_at": "2024-10-09T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "10",
+      "content": "General support has been helpful when I reached out.",
+      "platform": "Facebook",
+      "created_at": "2024-10-10T12:00:00Z",
+      "scraped_at": "2024-10-10T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "10",
+          "content": "Support was quick to respond and resolve my issue.",
+          "created_at": "2024-10-10T12:05:00Z",
+          "scraped_at": "2024-10-10T12:10:00Z"
+        }
+      ]
+    },
+
+    {
+      "post_id": "11",
+      "content": "Account security problems leading to compromised accounts.",
+      "platform": "Facebook",
+      "created_at": "2024-10-15T12:00:00Z",
+      "scraped_at": "2024-10-15T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "11",
+          "content": "My account was hacked and funds were stolen. Not happy at all!",
+          "created_at": "2024-10-15T12:05:00Z",
+          "scraped_at": "2024-10-15T12:10:00Z"
+        },
+        {
+          "post_id": "11",
+          "content": "This is very concerning. Account security needs serious improvement.",
+          "created_at": "2024-10-15T12:06:00Z",
+          "scraped_at": "2024-10-15T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "12",
+      "content": "Payment processing is still as fast as before, no delays.",
+      "platform": "Facebook",
+      "created_at": "2024-10-16T12:00:00Z",
+      "scraped_at": "2024-10-16T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "12",
+          "content": "I received my withdrawal within the usual timeframe.",
+          "created_at": "2024-10-16T12:05:00Z",
+          "scraped_at": "2024-10-16T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "13",
+      "content": "The trading platform is still reliable and has not experienced any downtime.",
+      "platform": "Facebook",
+      "created_at": "2024-10-17T12:00:00Z",
+      "scraped_at": "2024-10-17T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "13",
+          "content": "No issues with the platform recently. It’s been great.",
+          "created_at": "2024-10-17T12:05:00Z",
+          "scraped_at": "2024-10-17T12:10:00Z"
+        }
+      ]
+    },
+
+    {
+      "post_id": "14",
+      "content": "Account security improvements have been made. No recent issues.",
+      "platform": "Facebook",
+      "created_at": "2024-10-25T12:00:00Z",
+      "scraped_at": "2024-10-25T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "14",
+          "content": "I feel much safer now. Great work improving security!",
+          "created_at": "2024-10-25T12:05:00Z",
+          "scraped_at": "2024-10-25T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "post_id": "15",
+      "content": "Withdrawals are fast and secure again after the earlier issue.",
+      "platform": "Facebook",
+      "created_at": "2024-10-28T12:00:00Z",
+      "scraped_at": "2024-10-28T12:10:00Z",
+      "comments": [
+        {
+          "post_id": "15",
+          "content": "Got my funds within hours again. Everything seems back to normal.",
+          "created_at": "2024-10-28T12:05:00Z",
+          "scraped_at": "2024-10-28T12:10:00Z"
+        }
+      ]
+    }
+  ]
+}
