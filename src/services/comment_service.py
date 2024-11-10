@@ -2,7 +2,7 @@ from datetime import datetime
 from src.models.database import Comment
 from sqlalchemy.orm import Session
 
-def create_comment(db: Session, post_id: int, content: str, platform: str) -> Comment:
+def create_comment(db: Session, post_id: int, content: str, platform: str, created_at: datetime) -> Comment:
     """
     Create a new comment in the database.
     """
@@ -10,7 +10,7 @@ def create_comment(db: Session, post_id: int, content: str, platform: str) -> Co
         post_id=post_id,
         content=content,
         platform=platform,
-        created_at=datetime.utcnow(),
+        created_at=created_at,
         scraped_at=datetime.utcnow()
     )
     

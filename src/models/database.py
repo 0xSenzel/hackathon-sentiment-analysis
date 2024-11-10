@@ -22,7 +22,7 @@ class Comment(Base):
     platform = Column(Text)
     created_at = Column(DateTime(timezone=True), nullable=False)
     scraped_at = Column(DateTime(timezone=True), nullable=False)
-    isAnalyzed = Column(Boolean)
+    is_analyzed = Column(Boolean, default=False)
 
 class SentimentAnalysis(Base):
     __tablename__ = 'sentiment_analysis'
