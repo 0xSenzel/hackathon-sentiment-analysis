@@ -19,3 +19,12 @@ def create_comment(db: Session, post_id: int, content: str, platform: str) -> Co
     db.refresh(comment)
     
     return comment 
+
+def get_comments(db: Session, skip: int = 0, limit: int = 10) -> list[Comment]:
+    """
+    Get all comments from the database with pagination.
+    """
+    return db.query(Comment)\
+        .offset(skip)\
+        .limit(limit)\
+        .all() 
