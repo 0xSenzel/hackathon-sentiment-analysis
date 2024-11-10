@@ -85,6 +85,20 @@ class SentimentService:
             .limit(limit)\
             .all() 
 
+    def calculate_threshold_met(average_sentiment_score: float, total_volume: int) -> bool:
+        # Threshold conditions:
+        # 1. Very negative: avg score < -0.6 with any volume
+        # 2. Moderately negative: avg score < -0.4 with volume >= 5
+        # 3. Slightly negative: avg score < -0.2 with volume >= 10
+        
+        if average_sentiment_score < -0.6:
+            return True
+        elif average_sentiment_score < -0.4 and total_volume >= 5:
+            return True
+        elif average_sentiment_score < -0.2 and total_volume >= 10:
+            return True
+        return False
+
     @staticmethod
     def upsert_sentiment_summary(
         db: Session,
@@ -106,6 +120,18 @@ class SentimentService:
             new_total_volume = existing_summary.total_volume + volume
             new_total_sentiment_score = existing_summary.total_sentiment_score + sentiment_score
             new_average_sentiment_score = new_total_sentiment_score / new_total_volume
+            
+            # Calculate threshold_met based on new averages
+            threshold_met = calculate_threshold_met(new_average_sentiment_score, new_total_volume)
+            
+            # Update priority based on threshold
+            if threshold_met:
+                if new_average_sentiment_score < -0.6:
+                    priority = "high"
+                elif new_average_sentiment_score < -0.4:
+                    priority = "medium"
+                else:
+                    priority = "low"
             
             # Update existing record
             existing_summary.total_sentiment_score = new_total_sentiment_score

@@ -2,7 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.llms import Ollama
 from sqlalchemy.orm import Session
 from datetime import datetime
-from ..models.database import Comment, SentimentAnalysis
+from ..models.database import Comment, SentimentAnalysis, SentimentSummary
 from .sentiment_service import SentimentService
 
 class SentimentAnalyzerService:
@@ -17,10 +17,18 @@ class SentimentAnalyzerService:
         self.model = Ollama(model="llama2")
         self.chain = self.prompt | self.model
         
-        # Define thresholds
-        self.SENTIMENT_THRESHOLD = -5.0  # Negative threshold for alerts
-        self.VOLUME_THRESHOLD = 3  # Minimum number of comments for an issue
-        
+        # Updated thresholds
+        self.SENTIMENT_THRESHOLDS = {
+            "high": -0.7,    # Very negative sentiment
+            "medium": -0.4,  # Moderately negative
+            "low": -0.2      # Slightly negative
+        }
+        self.VOLUME_THRESHOLDS = {
+            "high": 3,       # Immediate attention needed
+            "medium": 5,     # Monitor closely
+            "low": 10        # General monitoring
+        }
+
     def get_unanalyzed_comments(self, db: Session) -> list[Comment]:
         """Pull all latest unanalyzed comments"""
         return db.query(Comment)\
@@ -47,29 +55,53 @@ class SentimentAnalyzerService:
             "category": results[3].strip()
         }
     
+    def determine_priority(self, sentiment_score: float, volume: int) -> tuple[str, bool]:
+        """Determine priority and threshold status based on sentiment and volume"""
+        if sentiment_score < self.SENTIMENT_THRESHOLDS["high"]:
+            return "high", True
+        elif sentiment_score < self.SENTIMENT_THRESHOLDS["medium"] and volume >= self.VOLUME_THRESHOLDS["high"]:
+            return "medium", True
+        elif sentiment_score < self.SENTIMENT_THRESHOLDS["low"] and volume >= self.VOLUME_THRESHOLDS["medium"]:
+            return "low", True
+        return "normal", False
+
     def update_sentiment_summary(self, db: Session, category: str, sentiment_score: float) -> None:
         """Update sentiment summary for the category"""
+        # Get current volume from existing summary
+        existing_summary = db.query(SentimentSummary).filter(
+            SentimentSummary.group_name == category
+        ).first()
+        
+        current_volume = 1 if not existing_summary else existing_summary.total_volume + 1
+        priority, threshold_met = self.determine_priority(sentiment_score, current_volume)
+        
         SentimentService.upsert_sentiment_summary(
             db=db,
             group_name=category,
             issue_type=category,
-            total_sentiment_score=sentiment_score,
-            average_sentiment_score=sentiment_score,  # Will be averaged in the service
-            total_volume=1,
-            priority="high" if sentiment_score < self.SENTIMENT_THRESHOLD else "low",
-            threshold_met=sentiment_score < self.SENTIMENT_THRESHOLD
+            sentiment_score=sentiment_score,  # Changed to pass individual score
+            volume=1,                         # Changed to pass individual volume
+            priority=priority,
+            threshold_met=threshold_met
         )
 
     def check_and_create_issue(self, db: Session, category: str, sentiment_score: float) -> None:
         """Check threshold and create issue if needed"""
-        if sentiment_score < self.SENTIMENT_THRESHOLD:
+        existing_summary = db.query(SentimentSummary).filter(
+            SentimentSummary.group_name == category
+        ).first()
+        
+        current_volume = 1 if not existing_summary else existing_summary.total_volume + 1
+        priority, threshold_met = self.determine_priority(sentiment_score, current_volume)
+        
+        if threshold_met:
             SentimentService.create_issue_tracking(
                 db=db,
                 group_name=category,
                 issue_type=category,
                 sentiment_score=sentiment_score,
-                volume=1,
-                priority="high",
+                volume=current_volume,
+                priority=priority,
                 department=self.get_department_for_category(category)
             )
 
@@ -101,7 +133,7 @@ class SentimentAnalyzerService:
                     sentiment=analysis["sentiment"],
                     score=analysis["score"],
                     confidence=analysis["confidence"],
-                    priority="high" if analysis["score"] < self.SENTIMENT_THRESHOLD else "low",
+                    priority="high" if analysis["score"] < self.SENTIMENT_THRESHOLDS["high"] else "low",
                     department=self.get_department_for_category(analysis["category"])
                 )
                 
