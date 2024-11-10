@@ -9,7 +9,9 @@ class SentimentAnalyzerService:
     def __init__(self):
         # Initialize LangChain components
         template = """Question: {question}
-        Answer: give answer only. no explaination."""
+                Answer: "Analyze the sentiment of the review. Output your answer as JSON that "
+                "matches the given schema: ```json\n{schema}\n```. "
+                "Make sure to wrap the answer in ```json and ``` tags"""
         
         self.prompt = ChatPromptTemplate.from_template(template)
         self.model = Ollama(model="llama2")
