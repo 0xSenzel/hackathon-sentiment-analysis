@@ -90,9 +90,8 @@ class SentimentService:
         db: Session,
         group_name: str,
         issue_type: str,
-        total_sentiment_score: float,
-        average_sentiment_score: float,
-        total_volume: int,
+        sentiment_score: float,
+        volume: int,
         priority: str,
         threshold_met: bool = False
     ) -> SentimentSummary:
@@ -103,10 +102,15 @@ class SentimentService:
         ).first()
         
         if existing_summary:
+            # Calculate new totals
+            new_total_volume = existing_summary.total_volume + volume
+            new_total_sentiment_score = existing_summary.total_sentiment_score + sentiment_score
+            new_average_sentiment_score = new_total_sentiment_score / new_total_volume
+            
             # Update existing record
-            existing_summary.total_sentiment_score = total_sentiment_score
-            existing_summary.average_sentiment_score = average_sentiment_score
-            existing_summary.total_volume = total_volume
+            existing_summary.total_sentiment_score = new_total_sentiment_score
+            existing_summary.average_sentiment_score = new_average_sentiment_score
+            existing_summary.total_volume = new_total_volume
             existing_summary.priority = priority
             existing_summary.threshold_met = threshold_met
             existing_summary.updated_at = datetime.utcnow()
@@ -119,13 +123,13 @@ class SentimentService:
                 db.rollback()
                 raise e
         else:
-            # Create new record
+            # Create new record with initial values
             new_summary = SentimentSummary(
                 group_name=group_name,
                 issue_type=issue_type,
-                total_sentiment_score=total_sentiment_score,
-                average_sentiment_score=average_sentiment_score,
-                total_volume=total_volume,
+                total_sentiment_score=sentiment_score,
+                average_sentiment_score=sentiment_score,
+                total_volume=volume,
                 priority=priority,
                 threshold_met=threshold_met,
                 created_at=datetime.utcnow()
