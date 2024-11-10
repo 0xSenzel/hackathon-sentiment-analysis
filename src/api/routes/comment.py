@@ -4,7 +4,7 @@ from typing import List
 from ...database.postgres import PostgresConnection
 from ...services.comment_service import get_comments
 from ..dtos.comment import CommentResponse
-from ...models.database import Comment
+from ...models.database import Comment, SentimentSummary
 
 router = APIRouter(
     prefix="/comments",
@@ -24,3 +24,8 @@ def get_unanalyzed_comments(
         .filter(Comment.is_analyzed == False)\
         .order_by(Comment.id.asc())\
         .all()
+
+@router.get("/sentiment-summary", response_model=List[dict])
+def get_all_sentiment_summaries(db: Session = Depends(postgres.get_db)):
+    """Get all sentiment summaries from the database"""
+    return db.query(SentimentSummary).all()
